@@ -1,0 +1,3 @@
+## Prettier will ignore following files and directories
+node_modules/
+package-lock.json
