@@ -13,14 +13,17 @@ import renderTitle from "./cli/utils/renderTitle.js";
 const main = async () => {
   renderTitle();
 
+  logger.info("To see the timeline of features marked as coming soon:");
+  logger.info("https://github.com/kinngh/create-shop-app/discussions/1");
+
   const {
     appName,
     databaseTech,
     graphqlTech,
     // billingAPI,
-    flags: { git, install },
+    // language,
+    flags: { git },
   } = await runCli();
-  console.log("Done runcli");
 
   const [scopedAppName, appDir] = parseNameAndPath(appName);
 
@@ -29,18 +32,15 @@ const main = async () => {
     databaseTech,
     graphqlTech,
   });
-  console.log("Done createProject");
 
   if (git) {
     await gitCreate(projectDir);
-    console.log("Done create git");
   }
 
-  nextSteps({ projectName: appDir, database: databaseTech, install });
-  console.log("Done nextsteps");
+  nextSteps({ projectName: appDir });
   const packageJson = await fs.readJson(path.join(projectDir, "package.json"));
   packageJson.name = scopedAppName;
-  packageJson.csaMetadata = { initVersion: getVersion() };
+  packageJson.createShopApp = { version: getVersion() };
 
   await fs.writeJson(path.join(projectDir, "package.json"), packageJson, {
     spaces: 2,
@@ -57,7 +57,6 @@ main().catch((err) => {
     logger.error(
       "Unknown error occured. Please open an issue on GitHub with below:\n"
     );
-    console.log(err);
   }
   process.exit(1);
 });

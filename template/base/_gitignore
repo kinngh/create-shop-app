@@ -5,6 +5,7 @@
 
 # Database
 mongo/
+postgre/
 
 # macOS
 .DS_Store

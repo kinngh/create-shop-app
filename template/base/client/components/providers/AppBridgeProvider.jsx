@@ -3,11 +3,6 @@ import { Banner, Layout, Page } from "@shopify/polaris";
 import { useState } from "react";
 
 const AppBridgeProvider = ({ children }) => {
-  // The host may be present initially, but later removed by navigation.
-  // By caching this in state, we ensure that the host is never lost.
-  // During the lifecycle of an app, these values should never be updated anyway.
-  // Using state in this way is preferable to useMemo.
-  // See: https://stackoverflow.com/questions/60482318/version-of-usememo-for-caching-a-value-that-will-never-change
   const [appBridgeConfig] = useState(() => {
     const host =
       new URLSearchParams(location.search).get("host") ||

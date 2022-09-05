@@ -1,6 +1,6 @@
 {
   "name": "create-shop-app",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A command line tool to generate Shopify app boilerplate",
   "license": "MIT",
   "author": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kinngh/create-shopify-app.git"
+    "url": "git+https://github.com/kinngh/create-shop-app.git"
   },
   "keywords": [
     "shopify",
@@ -30,14 +30,18 @@
     "start": "node ./dist/index.js",
     "pretty": "prettier --write .",
     "build": "tsup ./index.js --format esm --clean --sourcemap --metafile",
-    "release": "npm run build && npm publish"
+    "release": "npm run build && npm publish",
+    "update": "npm run update:base && npm run update:template",
+    "update:template": "node utils/updatePackages.js",
+    "update:base": "ncu -u"
   },
   "dependencies": {
     "chalk": "^5.0.1",
     "commander": "^9.4.0",
     "fs-extra": "^10.1.0",
     "gradient-string": "^2.0.1",
-    "inquirer": "^9.1.0",
+    "inquirer": "^9.1.1",
+    "npm-check-updates": "^16.1.0",
     "ora": "^6.1.2",
     "sort-package-json": "^1.57.0"
   },

@@ -1,7 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
-import { Card, DataTable, Page } from "@shopify/polaris";
-import { navigate } from "raviger";
 import React from "react";
+import { Page, Card, DataTable } from "@shopify/polaris";
+import { useQuery, gql } from "@apollo/client";
+import { navigate } from "raviger";
 
 const ActiveWebhooks = () => {
   const getInstalledWebhooks = gql`

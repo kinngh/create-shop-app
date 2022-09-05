@@ -4,15 +4,16 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
+import useFetch from "../../hooks/useFetch";
 
 function QueryProvider({ children }) {
-  const app = useAppBridge();
+  const fetch = useFetch();
 
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
       credentials: "include",
-      fetch: userLoggedInFetch(app),
+      fetch: fetch,
     }),
   });
 

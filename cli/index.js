@@ -1,8 +1,5 @@
-import chalk from "chalk";
-import { Command } from "commander";
 import inquirer from "inquirer";
 import constants from "./constants.js";
-import getVersion from "./utils/getCLIVersion.js";
 import logger from "./utils/logger.js";
 import validateAppName from "./utils/validateAppName.js";
 const { defaultName } = constants;
@@ -19,55 +16,31 @@ const defaultOptions = {
 const runCli = async () => {
   const cliResults = defaultOptions;
 
-  const program = new Command().name(defaultName);
-
-  program
-    .description("A CLI for creating custom Shopify applications")
-    .argument(
-      "[dir]",
-      "The name of the application, as well as the name of the directory to create"
-    )
-    .option(
-      "--git",
-      "Explicitly tell the CLI to not initialize a new git repo in the project",
-      false
-    )
-    // .option(
-    //   "--y",
-    //   "Bypass the CLI and use all default options to bootstrap a new shop app",
-    //   false
-    // )
-    .version(getVersion(), "-v, --version", "Display the version number")
-    .addHelpText(
-      "afterAll",
-      `\nThe create-shop-app was created by ${chalk
-        .hex("#E8DCFF")
-        .bold("@kinngh")}\n
-        https://twitter.com/kinngh\n`
-    )
-    .parse(process.argv);
-
-  const cliProvidedName = program.args[0];
-  if (cliProvidedName) {
-    cliResults.appName = cliProvidedName;
-  }
-
-  cliResults.flags = program.opts();
-
   try {
-    if (!cliProvidedName) {
-      const { appName } = await inquirer.prompt({
-        name: "appName",
-        type: "input",
-        message: "What will your project be called?",
-        default: defaultOptions.appName,
-        validate: validateAppName,
-        transformer: (input) => {
-          return input.trim();
-        },
-      });
-      cliResults.appName = appName;
-    }
+    const { appName } = await inquirer.prompt({
+      name: "appName",
+      type: "input",
+      message: "What will your project be called?",
+      default: defaultOptions.appName,
+      validate: validateAppName,
+      transformer: (input) => {
+        return input.trim();
+      },
+    });
+    cliResults.appName = appName;
+
+    // const { language } = await inquirer.prompt({
+    //   name: "language",
+    //   type: "list",
+    //   message: "Which language do you prefer?",
+    //   choices: [
+    //     { name: "JavaScript", value: "js", short: "js" },
+    //     { name: "TypeScript", value: "ts", short: "ts" },
+    //   ],
+    //   default: defaultOptions.language,
+    // });
+
+    // cliResults.language = language;
 
     const { databaseTech } = await inquirer.prompt({
       name: "databaseTech",
@@ -84,19 +57,6 @@ const runCli = async () => {
 
     cliResults.databaseTech = databaseTech;
 
-    // const { language } = await inquirer.prompt({
-    //   name: "language",
-    //   type: "list",
-    //   message: "Which language do you prefer?",
-    //   choices: [
-    //     { name: "JavaScript", value: "js", short: "js" },
-    //     { name: "TypeScript", value: "ts", short: "ts" },
-    //   ],
-    //   default: defaultOptions.language,
-    // });
-
-    // cliResults.language = language;
-
     const { graphqlTech } = await inquirer.prompt({
       name: "graphqlTech",
       type: "list",
@@ -107,7 +67,11 @@ const runCli = async () => {
           value: "apollo_client",
           short: "apollo_client",
         },
-        { name: "React Query", value: "react_query", short: "react_query" },
+        {
+          name: "React Query (Coming Soon)",
+          value: "react_query",
+          short: "react_query",
+        },
       ],
       default: defaultOptions.graphqlTech,
     });

@@ -8,31 +8,31 @@ A CLI tool to generate custom Shopify app boilerplate code with the following ch
 
 - [x] MongoDB
 - [x] Supabase
-- [ ] Prisma
-- [ ] PostgreSQL
+- [ ] Prisma [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
+- [ ] PostgreSQL [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
 
 ### Query
 
 - [x] Apollo Client
-- [x] React Query
+- [ ] React Query [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
 
 ### Billing API
 
 - [x] Free
-- [ ] Subscription (Free + Paid features)
-- [ ] Subscription (Paid Only)
-- [ ] Usage based
+- [ ] Subscription (Free + Paid features) [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
+- [ ] Subscription (Paid Only) [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
+- [ ] Usage based [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
 
 ### Package Manager
 
 - [x] npm
-- [ ] pnpm
-- [ ] yarn
+- [ ] pnpm [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
+- [ ] yarn [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
 
 ### Language
 
 - [x] JavaScript
-- [ ] TypeScript
+- [ ] TypeScript [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
 
 ## Why
 

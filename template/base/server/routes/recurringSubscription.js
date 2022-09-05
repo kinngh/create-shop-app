@@ -43,7 +43,7 @@ subRoute.get("/recurringPay", async (req, res) => {
   });
 
   const errorMessage = response.body.data.appSubscriptionCreate.userErrors;
-  if (errorMessage) {
+  if (errorMessage.length > 0) {
     console.log(`--> Error subscribing ${session.shop} to plan:`, errorMessage);
     res.status(401).send({ success: false, message: errorMessage });
     return;

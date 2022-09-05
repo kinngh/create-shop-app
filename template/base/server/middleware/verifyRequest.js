@@ -1,23 +1,43 @@
-const { default: Shopify } = require("@shopify/shopify-api");
+const { Shopify } = require("@shopify/shopify-api");
+
+const TEST_GRAPHQL_QUERY = `
+{
+  shop {
+    name
+  }
+}`;
 
 const verifyRequest = (app, { returnHeader = true } = {}) => {
   return async (req, res, next) => {
-    const shop = req.query.shop;
-
-    if (!shop || shop === "" || typeof shop === "undefined") {
-      return res
-        .status(400)
-        .send("Could not find a shop to authenticate with.");
-    }
-
+    let { shop, host } = req.query;
     const session = await Shopify.Utils.loadCurrentSession(req, res, true);
 
+    if (!session) {
+      return res
+        .status(400)
+        .send(
+          `Could not find a shop to authenticate with. Make sure you are making your XHR request with App Bridge's authenticatedFetch method.`
+        );
+    }
+
     if (session.isActive()) {
-      console.log(`-----> Scope from .env: ${process.env.SCOPES}`);
-      console.log(`-----> Scope from Shopify: ${Shopify.Context.SCOPES}`);
-      next();
-    } else {
-      res.redirect(`/auth?shop=${shop}`);
+      try {
+        const client = new Shopify.Clients.Graphql(
+          session.shop,
+          session.accessToken
+        );
+        await client.query({ data: TEST_GRAPHQL_QUERY });
+        return next();
+      } catch (e) {
+        if (
+          e instanceof Shopify.Errors.HttpResponseError &&
+          e.response.code === 401
+        ) {
+          res.redirect(`/auth?shop=${shop}`);
+        } else {
+          throw e;
+        }
+      }
     }
 
     if (returnHeader) {
@@ -25,12 +45,20 @@ const verifyRequest = (app, { returnHeader = true } = {}) => {
         if (session) {
           shop = session.shop;
         } else if (Shopify.Context.IS_EMBEDDED_APP) {
-          const authheader = req.headers.authorization?.match(/Bearer (.*)/);
-          if (authheader) {
-            const payload = Shopify.Utils.decodeSessionToken(authheader[1]);
+          const authHeader = req.headers.authorization?.match(/Bearer (.*)/);
+          if (authHeader) {
+            const payload = Shopify.Utils.decodeSessionToken(authHeader[1]);
             shop = payload.dest.replace("https://", "");
           }
         }
+      }
+
+      if (!shop || shop === "") {
+        return res
+          .status(400)
+          .send(
+            `Could not find a shop to authenticate with. Make sure you are making your XHR request with App Bridge's authenticatedFetch method.`
+          );
       }
 
       res.status(403);
@@ -41,7 +69,7 @@ const verifyRequest = (app, { returnHeader = true } = {}) => {
       );
       res.end();
     } else {
-      res.redirect(`/auth?shop=${shop}`);
+      res.redirect(`/auth?shop=${shop}&host=${host}`);
     }
   };
 };
