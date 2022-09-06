@@ -8,8 +8,8 @@ const setupCheck = () => {
     ENCRYPTION_STRING: encString,
     PORT: port,
     NPM_CONFIG_FORCE: forceInstall,
-    DB_URL: supabaseUrl,
-    DB_KEY: supabaseKey,
+    DATABASE_URL: supabaseUrl,
+    DATABASE_KEY: supabaseKey,
   } = process.env;
 
   let errorCount = 0;
@@ -42,8 +42,9 @@ const setupCheck = () => {
   }
   if (typeof port === "undefined") {
     console.warn(
-      "--> Port is undefined. Using 8081. If you're hosting on Northflank / Heroku, you can safely ignore this error."
-    );
+      "--> Port is undefined. Using 8081."
+      );
+      errorCount++;
   }
   if (!forceInstall) {
     console.error(

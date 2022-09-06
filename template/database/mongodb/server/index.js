@@ -27,7 +27,7 @@ const PORT = parseInt(process.env.PORT, 10) || 8081;
 const isDev = process.env.NODE_ENV === "dev";
 
 const mongoUrl =
-  process.env.DB_URL || "mongodb://127.0.0.1:27017/create-shop-app";
+  process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/create-shop-app";
 
 mongoose.connect(mongoUrl, (error) => {
   if (error) {

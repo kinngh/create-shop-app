@@ -8,7 +8,7 @@ const setupCheck = () => {
     ENCRYPTION_STRING: encString,
     PORT: port,
     NPM_CONFIG_FORCE: forceInstall,
-    DB_URL: databaseURL,
+    DATABASE_URL: databaseURL,
   } = process.env;
 
   let errorCount = 0;
@@ -40,9 +40,8 @@ const setupCheck = () => {
     errorCount++;
   }
   if (typeof port === "undefined") {
-    console.warn(
-      "--> Port is undefined. Using 8081. If you're hosting on Northflank / Heroku, you can safely ignore this error."
-    );
+    console.warn("--> Port is undefined.");
+    errorCount++;
   }
 
   if (typeof databaseURL === "undefined") {

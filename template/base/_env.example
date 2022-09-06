@@ -3,7 +3,7 @@ SHOPIFY_API_SECRET=
 SHOPIFY_API_SCOPES=
 SHOPIFY_APP_URL=
 SHOPIFY_API_VERSION="2022-07"
-DB_URL=
+DATABASE_URL= # MongoDB:"mongodb://host:port/create-shop-app" | PostgreSQL: "postgresql://username:password@host:port/create-shop-app?schema=public"
 ENCRYPTION_STRING=
 PORT=
 NPM_CONFIG_FORCE=true #Set to true if deploying to a server, so it runs `npm i --force` instead of `npm i`

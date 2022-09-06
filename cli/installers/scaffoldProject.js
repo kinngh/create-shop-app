@@ -67,12 +67,15 @@ const scaffoldProject = async ({
   logger.success("Successfully installed base packages.");
 
   let dbPackage = "";
+  let additionalInstalls = [];
+  
   switch (databaseTech) {
     case "mongodb":
       dbPackage = "mongoose";
       break;
     case "prisma":
-      dbPackage = "prisma";
+      dbPackage = "prisma -D";
+      additionalInstalls = ["npm install @prisma/client --force"];
       break;
     case "supabase":
       dbPackage = "@supabase/supabase-js";
@@ -88,7 +91,13 @@ const scaffoldProject = async ({
     });
   }
 
-  spinner.succeed(`Successfully installed ${dbPackage}`);
+  if (additionalInstalls.length > 0) {
+    additionalInstalls.forEach(async function (installCommand) {
+      await execCommand(installCommand, { cwd: projectDir });
+    });
+  }
+
+  spinner.succeed(`Successfully installed ${databaseTech}`);
 
   let gqlPackage = "";
   switch (graphqlTech) {
@@ -128,6 +137,23 @@ const scaffoldProject = async ({
     path.join(projectDir, ".env.example"),
     path.join(projectDir, ".env")
   );
+
+  if (databaseTech === "prisma") {
+    const packageJson = await fs.readJson(
+      path.join(projectDir, "package.json")
+    );
+    packageJson.scripts = {
+      ...packageJson.scripts,
+      "postgre:create": "mkdir postgre && pg_ctl -D postgre init",
+      "postgre:start": "pg_ctl -D postgre start",
+      "postgre:stop": "pg_ctl -D postgre stop",
+      "prisma:create": "npx prisma db push",
+    };
+
+    await fs.writeJson(path.join(projectDir, "package.json"), packageJson, {
+      spaces: 2,
+    });
+  }
 
   spinner.succeed(`${chalk.cyan.bold(projectName)} created successfully!\n`);
 };

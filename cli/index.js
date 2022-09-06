@@ -49,7 +49,7 @@ const runCli = async () => {
       choices: [
         { name: "MongoDB", value: "mongodb", short: "mongodb" },
         { name: "Supabase", value: "supabase", short: "supabase" },
-        { name: "Prisma (Coming Soon)", value: "prisma", short: "prisma" },
+        { name: "Prisma", value: "prisma", short: "prisma" },
         { name: "Postgre (Coming Soon)", value: "Postgre", short: "Postgre" },
       ],
       default: defaultOptions.databaseTech,

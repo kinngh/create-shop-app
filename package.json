@@ -1,6 +1,6 @@
 {
   "name": "create-shop-app",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A command line tool to generate Shopify app boilerplate",
   "license": "MIT",
   "author": {

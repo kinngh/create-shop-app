@@ -8,7 +8,7 @@ A CLI tool to generate custom Shopify app boilerplate code with the following ch
 
 - [x] MongoDB
 - [x] Supabase
-- [ ] Prisma [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
+- [ ] Prisma
 - [ ] PostgreSQL [(Coming Soon)](https://github.com/kinngh/create-shop-app/discussions/1)
 
 ### Query
@@ -47,9 +47,3 @@ The entire CLI is built in a way to make it as easy as possible to generate your
 - The CLI uses my [kinngh/shopify-node-express-mongodb-app](http://github.com/kinngh/shopify-node-express-mongodb-app) repo as a base and swaps out tech based on choices and is opinionated.
 - I recommend using [kinngh/shopify-node-express-mongodb-app](http://github.com/kinngh/shopify-node-express-mongodb-app) to open issues related to the base template since that's what is being used.
   - Issues here should only be around the CLI. Non-CLI issues will be closed without possible resolution.
-
-### ToDo:
-
-- [ ] Readme for base repo
-- [ ] Setup (DB and GQL specific)
-- [ ] Frontend content
