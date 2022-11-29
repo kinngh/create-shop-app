@@ -68,7 +68,7 @@ const scaffoldProject = async ({
 
   let dbPackage = "";
   let additionalInstalls = [];
-  
+
   switch (databaseTech) {
     case "mongodb":
       dbPackage = "mongoose";

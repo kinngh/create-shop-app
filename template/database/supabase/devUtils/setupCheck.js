@@ -41,10 +41,8 @@ const setupCheck = () => {
     errorCount++;
   }
   if (typeof port === "undefined") {
-    console.warn(
-      "--> Port is undefined. Using 8081."
-      );
-      errorCount++;
+    console.warn("--> Port is undefined. Using 8081.");
+    errorCount++;
   }
   if (!forceInstall) {
     console.error(
