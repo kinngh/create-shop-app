@@ -1,3 +1,7 @@
+/*
+    Run commands in terminal
+*/
+
 import { exec } from "child_process";
 import { promisify } from "util";
 

@@ -1,12 +1,10 @@
 import path from "path";
-import scaffoldProject from "./scaffoldProject.js";
 import { addDatabase } from "./databaseTech.js";
 import { addGraphqlClient } from "./graphqlTech.js";
-
-import getPackageManager from "../utils/getPackageManager.js";
+import scaffoldProject from "./scaffoldProject.js";
 
 const createProject = async ({ projectName, databaseTech, graphqlTech }) => {
-  const packageManager = getPackageManager();
+  const packageManager = "npm";
   const projectDir = path.resolve(process.cwd(), projectName);
 
   await scaffoldProject({

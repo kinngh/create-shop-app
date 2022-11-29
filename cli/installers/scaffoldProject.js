@@ -1,3 +1,6 @@
+//TODO:- Add shoutout to https://createshopapp.com
+//TODO:- Make sure package.json additions for prisma have " around them. Prettier likes to remove 'em because it's being treated as an object.
+
 import chalk from "chalk";
 import fs from "fs-extra";
 import inquirer from "inquirer";
@@ -23,7 +26,7 @@ const scaffoldProject = async ({
 
   const spinner = ora(`Installing packages. This will take a while.\n`).start();
 
-  //MARK:- If the dir exists and is empty, add anyways. If there's content, ask to overwrite
+  //If the dir exists and is empty, add anyways. If there's content, ask to overwrite
 
   if (fs.existsSync(projectDir)) {
     if (fs.readdir(projectDir).length === 0) {
@@ -148,6 +151,7 @@ const scaffoldProject = async ({
       "postgre:start": "pg_ctl -D postgre start",
       "postgre:stop": "pg_ctl -D postgre stop",
       "prisma:create": "npx prisma db push",
+      "prepare": "npx prisma generate",
     };
 
     await fs.writeJson(path.join(projectDir, "package.json"), packageJson, {

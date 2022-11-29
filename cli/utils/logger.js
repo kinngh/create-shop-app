@@ -1,3 +1,7 @@
+/*
+  Color logs in console
+*/
+
 import chalk from "chalk";
 
 const logger = {

@@ -1,6 +1,9 @@
+/*
+  Render title on start and add gradient
+*/
+
 import gradient from "gradient-string";
 import constants from "../constants.js";
-import getPackageManager from "../utils/getPackageManager.js";
 const { title } = constants;
 
 const colorScheme = {
@@ -13,11 +16,6 @@ const colorScheme = {
 
 const renderTitle = () => {
   const myGradient = gradient(Object.values(colorScheme));
-
-  const packageManger = getPackageManager();
-  if (packageManger !== "npm") {
-    console.log("");
-  }
 
   console.log(myGradient.multiline(title));
 };

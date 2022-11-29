@@ -1,5 +1,9 @@
-import path from "path";
+/*
+  Get current `create-shop-app` version from `package.json`
+*/
+
 import fs from "fs-extra";
+import path from "path";
 import constants from "../constants.js";
 const { packageRoot } = constants;
 

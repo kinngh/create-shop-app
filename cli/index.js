@@ -1,3 +1,9 @@
+/*
+TODO
+  - Redo baseline / cleanup
+  - Add support for flags / options
+*/
+
 import inquirer from "inquirer";
 import constants from "./constants.js";
 import logger from "./utils/logger.js";

@@ -1,3 +1,7 @@
+/*
+  Run a check to see if the app name is valid
+*/
+
 const validationRegExp =
   /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 

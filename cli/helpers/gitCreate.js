@@ -1,5 +1,5 @@
 /*
-    Init git repo for the project
+  Create a git repository
 */
 
 import ora from "ora";
@@ -7,15 +7,17 @@ import execCommand from "../utils/execCommand.js";
 import logger from "../utils/logger.js";
 
 const gitCreate = async (projectDir) => {
-  logger.info("Creating Git Repo...");
-  const spinner = ora("creating a new git repo...").start();
+  // logger.info("Creating a git repository");
+  const spinner = ora("creating a new git repository").start();
 
   try {
-    const gitInit = "git init && git branch -m main";
-    await execCommand(gitInit, { cwd: projectDir });
+    //Start off with a base commit so there's an option to go back to base.
+    const createGitRepo =
+      'git init && git add . && git commit -m "Initial commit" && git branch -M main';
+    await execCommand(createGitRepo, { cwd: projectDir });
     spinner.succeed(logger.success("Successfully Initialized Repository"));
   } catch (e) {
-    logger.error("FAIL: Couldn't create a git repository.");
+    logger.error("ERROR: Couldn't create a git repository.", e);
   }
 };
 
