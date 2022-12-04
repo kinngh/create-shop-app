@@ -9,7 +9,7 @@ import appArchitecture from "./architecture.js";
 import appBilling from "./billing.js";
 import appDatabase from "./database.js";
 import appESLint from "./eslint.js";
-import appFetch from "./fetch.js";
+import appFetcher from "./appFetch.js";
 import appRedis from "./redis.js";
 import appRouting from "./routing.js";
 import scaffoldProject from "./scaffoldProject.js";
@@ -60,7 +60,7 @@ const createProject = async ({
     //Redis will overwrite server/utils/sessionStorage.js from database to use Redis
     await appRedis({ projectDir, redis, language });
   }
-  await appFetch({ projectDir, appFetch, language });
+  await appFetcher({ projectDir, appFetch, language });
   if (routing !== "next") {
     //If we're using Next.js, using a custom router doesn't make sense.
     await appRouting({ projectDir, routing, language });
