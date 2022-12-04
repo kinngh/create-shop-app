@@ -18,33 +18,48 @@ const main = async () => {
 
   const {
     appName,
-    databaseTech,
-    graphqlTech,
-    // billingAPI,
-    // language,
-    flags: { git },
+    language,
+    architecture,
+    routing,
+    eslint,
+    fetch,
+    database,
+    webhooks,
+    billing,
   } = await runCli();
 
-  const [scopedAppName, appDir] = parseNameAndPath(appName);
-
-  const projectDir = await createProject({
-    projectName: appDir,
-    databaseTech,
-    graphqlTech,
+  console.log({
+    appName,
+    language,
+    architecture,
+    routing,
+    eslint,
+    fetch,
+    database,
+    webhooks,
+    billing,
   });
 
-  if (git) {
-    await gitCreate(projectDir);
-  }
+  // const [scopedAppName, appDir] = parseNameAndPath(appName);
 
-  nextSteps({ projectName: appDir });
-  const packageJson = await fs.readJson(path.join(projectDir, "package.json"));
-  packageJson.name = scopedAppName;
-  packageJson.createShopApp = { version: getVersion() };
+  // const projectDir = await createProject({
+  //   projectName: appDir,
+  //   databaseTech,
+  //   graphqlTech,
+  // });
 
-  await fs.writeJson(path.join(projectDir, "package.json"), packageJson, {
-    spaces: 2,
-  });
+  // if (git) {
+  //   await gitCreate(projectDir);
+  // }
+
+  // nextSteps({ projectName: appDir });
+  // const packageJson = await fs.readJson(path.join(projectDir, "package.json"));
+  // packageJson.name = scopedAppName;
+  // packageJson.createShopApp = { version: getVersion() };
+
+  // await fs.writeJson(path.join(projectDir, "package.json"), packageJson, {
+  //   spaces: 2,
+  // });
 
   process.exit(0);
 };
