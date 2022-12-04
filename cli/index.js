@@ -1,14 +1,40 @@
-/*
-TODO
-  - Redo baseline / cleanup
-  - Add support for flags / options
-*/
-
 import inquirer from "inquirer";
 import constants from "./constants.js";
 import logger from "./utils/logger.js";
 import validateAppName from "./utils/validateAppName.js";
 const { defaultName } = constants;
+
+/*
+  Template for building CLI options
+
+      // MARK:- Option
+
+      const { techName } = await inquirer.prompt({
+        name: "techName",
+        type: "list",
+        message: "QUESTION",
+        choices: [
+          { name: "option1", value: "option1", short: "option1" },
+          { name: "option2", value: "option2", short: "option2" },
+          { name: "option3", value: "option3", short: "option3" },
+          { name: "option4", value: "option4", short: "option4" },
+        ],
+        default: defaultOptions.techName,
+      });
+      cliResults.techName = techName
+  
+      ========================================================================
+      
+      // MARK:- Boolean
+
+      const { techName } = await inquirer.prompt({
+        name: "techName",
+        type: "confirm",
+        message: "QUESTION",
+        default: true,
+      });
+      cliResults.techName = techName;
+*/
 
 const defaultOptions = {
   appName: defaultName,
@@ -26,6 +52,9 @@ const runCli = async () => {
   const cliResults = defaultOptions;
 
   try {
+    /*
+      App Name
+    */
     const { appName } = await inquirer.prompt({
       name: "appName",
       type: "input",
@@ -38,42 +67,24 @@ const runCli = async () => {
     });
     cliResults.appName = appName;
 
-    // MARK:- Option
-    // const { techName } = await inquirer.prompt({
-    //   name: "techName",
-    //   type: "list",
-    //   message: "QUESTION",
-    //   choices: [
-    //     { name: "option1", value: "option1", short: "option1" },
-    //     { name: "option2", value: "option2", short: "option2" },
-    //     { name: "option3", value: "option3", short: "option3" },
-    //     { name: "option4", value: "option4", short: "option4" },
-    //   ],
-    //   default: defaultOptions.techName,
-    // });
-    // cliResults.techName = techName
-
-    // MARK:- Boolean
-    // const { techName } = await inquirer.prompt({
-    //   name: "techName",
-    //   type: "confirm",
-    //   message: "QUESTION",
-    //   default: true,
-    // });
-    // cliResults.techName = techName;
-
+    /*
+      Language: JavaScript or TypeScript
+    */
     const { language } = await inquirer.prompt({
       name: "language",
       type: "list",
       message: "What language do you want to use?",
       choices: [
-        { name: "JavaScript", value: "javascript", short: "javascript" },
-        { name: "TypeScript", value: "typescript", short: "typescript" },
+        { name: "JavaScript", value: "js", short: "js" },
+        { name: "TypeScript", value: "ts", short: "ts" },
       ],
       default: defaultOptions.language,
     });
     cliResults.language = language;
 
+    /*
+      Architecture: Server or Serverless
+    */
     const { architecture } = await inquirer.prompt({
       name: "architecture",
       type: "list",
@@ -91,6 +102,9 @@ const runCli = async () => {
     });
     cliResults.architecture = architecture;
 
+    /*
+      Routing: React Router DOM, Raviger or Next.js (serverless only)
+    */
     if (cliResults.architecture !== "serverless") {
       const { routing } = await inquirer.prompt({
         name: "routing",
@@ -111,6 +125,9 @@ const runCli = async () => {
       cliResults.routing = "next";
     }
 
+    /*
+      ESLint: Install, Install and configure, Don't install
+    */
     const { eslint } = await inquirer.prompt({
       name: "eslint",
       type: "list",
@@ -128,6 +145,9 @@ const runCli = async () => {
     });
     cliResults.eslint = eslint;
 
+    /*
+      Fetch: Apollo/Client, React-Query
+    */
     const { fetch } = await inquirer.prompt({
       name: "fetch",
       type: "list",
@@ -144,6 +164,9 @@ const runCli = async () => {
     });
     cliResults.fetch = fetch;
 
+    /*
+      Database: Prisma, MongoDB, Supabase
+    */
     const { database } = await inquirer.prompt({
       name: "database",
       type: "list",
@@ -161,6 +184,9 @@ const runCli = async () => {
     });
     cliResults.database = database;
 
+    /*
+      Webhook: AWS, GCP, Cloudflare, Native
+    */
     const { webhook } = await inquirer.prompt({
       name: "webhook",
       type: "list",
@@ -179,6 +205,9 @@ const runCli = async () => {
     });
     cliResults.webhook = webhook;
 
+    /*
+      Billing: Free, Freemium, Premium
+    */
     const { billing } = await inquirer.prompt({
       name: "billing",
       type: "list",
@@ -191,6 +220,8 @@ const runCli = async () => {
       default: defaultOptions.billing,
     });
     cliResults.billing = billing;
+
+    // spacer
   } catch (err) {
     if (err instanceof Error && err.isTTYError) {
       logger.warn(
