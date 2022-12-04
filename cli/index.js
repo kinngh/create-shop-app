@@ -42,7 +42,7 @@ const defaultOptions = {
   architecture: "server",
   routing: "raviger",
   eslint: "install_o",
-  fetch: "react-query",
+  appFetch: "react-query",
   database: "mongodb",
   redis: false,
   webhooks: "none",
@@ -147,12 +147,12 @@ const runCli = async () => {
     cliResults.eslint = eslint;
 
     /*
-      Fetch: Apollo/Client, React-Query
+      appFetch: Apollo/Client, React-Query
     */
-    const { fetch } = await inquirer.prompt({
-      name: "fetch",
+    const { appFetch } = await inquirer.prompt({
+      name: "appFetch",
       type: "list",
-      message: "What fetch library do you want to use?",
+      message: "What fetching library do you want to use?",
       choices: [
         {
           name: "Apollo/Client",
@@ -161,9 +161,9 @@ const runCli = async () => {
         },
         { name: "React-Query", value: "react_query", short: "react_query" },
       ],
-      default: defaultOptions.fetch,
+      default: defaultOptions.appFetch,
     });
-    cliResults.fetch = fetch;
+    cliResults.appFetch = appFetch;
 
     /*
       Database: Prisma, MongoDB, Supabase

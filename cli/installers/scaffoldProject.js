@@ -18,7 +18,7 @@ const scaffoldProject = async ({
     architecture,
     routing,
     eslint,
-    fetch,
+    appFetch,
     database,
     webhooks,
     billing,

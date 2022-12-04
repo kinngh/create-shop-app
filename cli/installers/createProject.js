@@ -21,7 +21,7 @@ const createProject = async ({
   architecture,
   routing,
   eslint,
-  fetch,
+  appFetch,
   database,
   webhooks,
   billing,
@@ -38,7 +38,7 @@ const createProject = async ({
     architecture,
     routing,
     eslint,
-    fetch,
+    appFetch,
     database,
     webhooks,
     billing,
@@ -60,7 +60,7 @@ const createProject = async ({
     //Redis will overwrite server/utils/sessionStorage.js from database to use Redis
     await appRedis({ projectDir, redis, language });
   }
-  await appFetch({ projectDir, fetch, language });
+  await appFetch({ projectDir, appFetch, language });
   if (routing !== "next") {
     //If we're using Next.js, using a custom router doesn't make sense.
     await appRouting({ projectDir, routing, language });

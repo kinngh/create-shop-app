@@ -1,4 +1,4 @@
-const appFetch = async ({ projectDir, fetch, language }) => {
+const appFetch = async ({ projectDir, appFetch, language }) => {
   console.log("Debug: appFetch");
   return;
 };
