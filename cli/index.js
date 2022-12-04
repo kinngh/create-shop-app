@@ -44,6 +44,7 @@ const defaultOptions = {
   eslint: "install_o",
   fetch: "react-query",
   database: "mongodb",
+  redis: false,
   webhooks: "none",
   billing: "free",
 };
@@ -183,6 +184,17 @@ const runCli = async () => {
       default: defaultOptions.database,
     });
     cliResults.database = database;
+
+    /*
+      Redis: True, False
+    */
+    const { redis } = await inquirer.prompt({
+      name: "redis",
+      type: "confirm",
+      message: "Use Redis for session storage?",
+      default: false,
+    });
+    cliResults.redis = redis;
 
     /*
       Webhook: AWS, GCP, Cloudflare, Native
