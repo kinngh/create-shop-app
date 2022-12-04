@@ -1,5 +1,5 @@
-//TODO:- Add shoutout to https://createshopapp.com
-//TODO:- Make sure package.json additions for prisma have " around them. Prettier likes to remove 'em because it's being treated as an object.
+//MARK:- This is not really necessary since this can be handled directly in `installers/<thing>.js` and `installers/createProject.js`
+//Dependants: ./installers/createProject.js
 
 import chalk from "chalk";
 import fs from "fs-extra";
@@ -14,17 +14,25 @@ const { packageRoot } = constants;
 
 const scaffoldProject = async ({
   projectName,
-  projectDir,
-  packageManager,
-  databaseTech,
-  graphqlTech,
+    language,
+    architecture,
+    routing,
+    eslint,
+    fetch,
+    database,
+    webhooks,
+    billing,
+    packageManager,
+    projectDir
 }) => {
+  console.log("Debug: scaffoldProject");
+
   const srcDir = path.join(packageRoot, "template/base");
   logger.info(
     `\nUsing: ${chalk.cyan.bold(packageManager)} to install packages.\n`
   );
 
-  const spinner = ora(`Installing packages. This will take a while.\n`).start();
+  const spinner = ora(`Installing packages...\n`).start();
 
   //If the dir exists and is empty, add anyways. If there's content, ask to overwrite
 

@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import constants from "./constants.js";
 import logger from "./utils/logger.js";
-import validateAppName from "./utils/validateAppName.js";
+import validateProjectName from "./utils/validateProjectName.js";
 const { defaultName } = constants;
 
 /*
@@ -37,7 +37,7 @@ const { defaultName } = constants;
 */
 
 const defaultOptions = {
-  appName: defaultName,
+  projectName: defaultName,
   language: "js",
   architecture: "server",
   routing: "raviger",
@@ -56,17 +56,17 @@ const runCli = async () => {
     /*
       App Name
     */
-    const { appName } = await inquirer.prompt({
-      name: "appName",
+    const { projectName } = await inquirer.prompt({
+      name: "projectName",
       type: "input",
       message: "What will your project be called?",
-      default: defaultOptions.appName,
-      validate: validateAppName,
+      default: defaultOptions.projectName,
+      validate: validateProjectName,
       transformer: (input) => {
         return input.trim();
       },
     });
-    cliResults.appName = appName;
+    cliResults.projectName = projectName;
 
     /*
       Language: JavaScript or TypeScript
@@ -240,7 +240,7 @@ const runCli = async () => {
         `${defaultName} needs an interactive terminal to provide options`
       );
       logger.info(
-        `Bootstrapping a default create-shop-app in ./${cliResults.appName}`
+        `Bootstrapping a default create-shop-app in ./${cliResults.projectName}`
       );
     } else {
       throw err;

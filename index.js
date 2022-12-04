@@ -13,11 +13,12 @@ import renderTitle from "./cli/utils/renderTitle.js";
 const main = async () => {
   renderTitle();
 
-  logger.info("To see the timeline of features marked as coming soon:");
-  logger.info("https://github.com/kinngh/create-shop-app/discussions/1");
+  logger.info("Useful links:");
+  logger.info("https://createshopapp.com");
+  logger.info("https://github.com/kinngh/create-shop-app");
 
   const {
-    appName,
+    projectName,
     language,
     architecture,
     routing,
@@ -28,8 +29,10 @@ const main = async () => {
     billing,
   } = await runCli();
 
-  console.log({
-    appName,
+  const [scopedAppName, appDir] = parseNameAndPath(projectName);
+
+  const projectDir = await createProject({
+    projectName,
     language,
     architecture,
     routing,
@@ -40,26 +43,18 @@ const main = async () => {
     billing,
   });
 
-  // const [scopedAppName, appDir] = parseNameAndPath(appName);
+  if (git) {
+    await gitCreate(projectDir);
+  }
 
-  // const projectDir = await createProject({
-  //   projectName: appDir,
-  //   databaseTech,
-  //   graphqlTech,
-  // });
+  nextSteps({ projectName: appDir });
+  const packageJson = await fs.readJson(path.join(projectDir, "package.json"));
+  packageJson.name = scopedAppName;
+  packageJson.createShopApp = { version: getVersion() };
 
-  // if (git) {
-  //   await gitCreate(projectDir);
-  // }
-
-  // nextSteps({ projectName: appDir });
-  // const packageJson = await fs.readJson(path.join(projectDir, "package.json"));
-  // packageJson.name = scopedAppName;
-  // packageJson.createShopApp = { version: getVersion() };
-
-  // await fs.writeJson(path.join(projectDir, "package.json"), packageJson, {
-  //   spaces: 2,
-  // });
+  await fs.writeJson(path.join(projectDir, "package.json"), packageJson, {
+    spaces: 2,
+  });
 
   process.exit(0);
 };
@@ -70,8 +65,10 @@ main().catch((err) => {
     logger.error(err);
   } else {
     logger.error(
-      "Unknown error occured. Please open an issue on GitHub with below:\n"
+      "Unknown error occured. Please open an issue on GitHub with below:\n",
+      err
     );
+    logger.info("https://github.com/kinngh/create-shop-app/issues/new");
   }
   process.exit(1);
 });
