@@ -1,12 +1,12 @@
 {
   "name": "create-shop-app",
-  "version": "0.0.7",
+  "version": "0.0.8-beta",
   "description": "A command line tool to generate Shopify app boilerplate",
   "license": "MIT",
   "type": "module",
   "author": {
     "name": "Harshdeep Singh Hura",
-    "url": "https://harshdeephura.com"
+    "url": "https://createshopapp.com"
   },
   "repository": {
     "type": "git",
@@ -31,14 +31,12 @@
     "pretty": "prettier --write .",
     "build": "tsup ./index.js --format esm --clean --sourcemap --metafile",
     "release": "npm run build && npm publish",
-    "update": "npm run update:base && npm run update:template",
-    "update:template": "node utils/updatePackages.js",
-    "update:base": "ncu -u"
+    "update": "ncu -u"
   },
   "dependencies": {
     "chalk": "^5.1.2",
     "commander": "^9.4.1",
-    "fs-extra": "^11.0.0",
+    "fs-extra": "^11.1.0",
     "gradient-string": "^2.0.2",
     "inquirer": "^9.1.4",
     "npm-check-updates": "^16.4.3",
