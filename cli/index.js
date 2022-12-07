@@ -89,12 +89,11 @@ const runCli = async () => {
     const { architecture } = await inquirer.prompt({
       name: "architecture",
       type: "list",
-      message:
-        "Do you want to use a Server (Express.js) or Serverless (Next.js)",
+      message: "What's your choice of backend framework?",
       choices: [
-        { name: "Server (Express.js)", value: "server", short: "server" },
+        { name: "Express.js Server", value: "server", short: "server" },
         {
-          name: "Serverless (Next.js)",
+          name: "Next.js Serverless",
           value: "serverless",
           short: "serverless",
         },
