@@ -1,5 +1,0 @@
-//CSA:-
-
-- Explain why overrides exist in `package.json` and how to deal with other issues with `npm ls react` for future packages.
-- Better npm scripts specific to DB
-- 
