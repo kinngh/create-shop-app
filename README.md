@@ -1,5 +1,7 @@
 # WIP | create-shop-app
 
+## [Announcements](https://github.com/kinngh/create-shop-app/discussions/4)
+
 `npx create-shop-app@latest`
 
 A Work-In-Progress, `create-shop-app` is a CLI tool to generate embedded Shopify app boilerplate with a stack of your choice. The current published package is an experimental build that is not recommended for use in production and substantial efforts are being taken to build a stable CLI tool.
